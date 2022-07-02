@@ -9,13 +9,13 @@
  */
 
     const express = require('express');
-    const connectDB = ('./db');
+    const connectDB = require('./db');
     require('dotenv').config();
     const {PORT} = process.env;
 
 
     // Connect to database
-    connectDB();
+    connectDB;
 
     // Initialize Express
     const app = express();
