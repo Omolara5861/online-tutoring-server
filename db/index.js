@@ -13,21 +13,41 @@ require('dotenv').config();
 const {MONGO_URI} = process.env;
 
 // Connection function
-const connectDB = () => {
-    mongoose.connect(MONGO_URI, {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useFindAndModify: false,
-        useUnifiedTopology: true
-    })
-    .then(() => {
-        console.log('MongoDB Connected...')
-        // Seed Data
-    })
-    .catch(err => {
-        console.log(err.messsage);
+// const connectDB = () => {
+//     mongoose.connect(MONGO_URI, {
+//         useNewUrlParser: true,
+//         useCreateIndex: true,
+//         useFindAndModify: false,
+//         useUnifiedTopology: true
+//     })
+//     .then(() => {
+//         console.log('MongoDB Connected...')
+//         // Seed Data
+//     })
+//     .catch(err => {
+//         console.log(err.messsage);
 
-        // Exist with failure
+//         // Exist with failure
+//         process.exit(1);
+//     });
+// }
+
+// Async/Await version of the connection function
+const connectDB = async () => {
+    try {
+        await mongoose.connect(MONGO_URI, {
+            useNewUrlParser: true,
+            useCreateIndex: true,
+            useFindAndModify: false,
+            useUnifiedTopology: true
+        });
+        console.log('MongoDB Connected...');
+        // Seed Data
+
+    } catch (err) {
+        console.error(err.message);
         process.exit(1);
-    });
+    }
 }
+
+module.exports = connectDB;
